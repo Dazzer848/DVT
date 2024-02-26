@@ -86,11 +86,8 @@ public class Checks {
     
     public boolean cardNumberCheck(String cardNumber){
         boolean correctLenght = false;
-        boolean noIllegalCharactersPresent = false;
-        
-        if(cardNumber.length() <= 0){
-            return false;
-        }
+        boolean noIllegalCharactersPresent = true;
+        boolean cardNumberValid = false;
         
         if(cardNumber.length() == 19){
             correctLenght = true;
@@ -99,7 +96,20 @@ public class Checks {
             return false;
         }
         
-        // CHECKS IF ALL CHARACTERS ARE DIGITS
+        for(int i = 0; i <= cardNumber.length(); i++){
+            
+            char checkDigit = cardNumber.charAt(i);
+            if(!(Character.isDigit(checkDigit))){
+                noIllegalCharactersPresent = false;
+                
+            }
+        }
+        
+        if(correctLenght == true && noIllegalCharactersPresent == true){
+            cardNumberValid = true;
+            return cardNumberValid;
+        }
+        return cardNumberValid;
     }
     
     public void printReciept(int priceOfItem, int ISBNofItem){

@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package UI;
-
+import Backend.Checks;
 /**
  *
  * @author darrenl
@@ -15,6 +15,11 @@ public class UI extends javax.swing.JFrame {
      */
     public UI() {
         initComponents();
+        emailAddressErrorDisplau.setVisible(false);
+        cardNumberErrorDisplayLabel.setVisible(false);
+        expirationErrorDisplayLabel.setVisible(false);
+        postalCardErrorDisplay.setVisible(false);
+        ISBNErrorDisplay.setVisible(false);
     }
 
     /**
@@ -50,13 +55,13 @@ public class UI extends javax.swing.JFrame {
         productLabelHeader = new javax.swing.JLabel();
         ISBNLabel = new javax.swing.JLabel();
         ISBNInputField = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
+        ISBNErrorDisplay = new javax.swing.JLabel();
         expirationErrorDisplayLabel = new javax.swing.JLabel();
         cardNumberErrorDisplayLabel = new javax.swing.JLabel();
         postalCardErrorDisplay = new javax.swing.JLabel();
         emailDisplayLabel = new javax.swing.JLabel();
         emailInputTextField = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
+        emailAddressErrorDisplau = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jCheckBox1 = new javax.swing.JCheckBox();
         jPanel3 = new javax.swing.JPanel();
@@ -100,8 +105,8 @@ public class UI extends javax.swing.JFrame {
 
         ISBNLabel.setText("ISBN:");
 
-        jLabel4.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel4.setText("                           Please enter a valid 10 Digit ISBN");
+        ISBNErrorDisplay.setForeground(new java.awt.Color(255, 0, 0));
+        ISBNErrorDisplay.setText("                           Please enter a valid 10 Digit ISBN");
 
         expirationErrorDisplayLabel.setForeground(new java.awt.Color(255, 0, 0));
         expirationErrorDisplayLabel.setText("Your Expiration date is too far");
@@ -110,12 +115,12 @@ public class UI extends javax.swing.JFrame {
         cardNumberErrorDisplayLabel.setText("                Your card number is too long");
 
         postalCardErrorDisplay.setForeground(new java.awt.Color(255, 0, 0));
-        postalCardErrorDisplay.setText("SAMPLE TEXT");
+        postalCardErrorDisplay.setText("PLEASE ENTER A VALID PRICE");
 
         emailDisplayLabel.setText("Email:");
 
-        jLabel1.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel1.setText("                      Please enter a valid email address");
+        emailAddressErrorDisplau.setForeground(new java.awt.Color(255, 0, 0));
+        emailAddressErrorDisplau.setText("                      Please enter a valid email address");
 
         jLabel3.setText("Email Recipt:");
 
@@ -132,12 +137,9 @@ public class UI extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(paymentDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paymentDetailsPanelLayout.createSequentialGroup()
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(ISBNErrorDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(58, 58, 58))
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paymentDetailsPanelLayout.createSequentialGroup()
-                                .addComponent(postalCardErrorDisplay)
-                                .addGap(117, 117, 117))))
+                            .addComponent(emailAddressErrorDisplau, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(paymentDetailsPanelLayout.createSequentialGroup()
                         .addGroup(paymentDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(purchaseButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -170,28 +172,31 @@ public class UI extends javax.swing.JFrame {
                                 .addComponent(postalCodeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jTextField8))
-                            .addGroup(paymentDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(paymentDetailsPanelLayout.createSequentialGroup()
-                                    .addComponent(emailDisplayLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(emailInputTextField))
-                                .addGroup(paymentDetailsPanelLayout.createSequentialGroup()
-                                    .addGroup(paymentDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(paymentDetailsPanelLayout.createSequentialGroup()
-                                            .addComponent(dayInputSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(18, 18, 18)
-                                            .addComponent(yearInputField, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(paymentDetailsPanelLayout.createSequentialGroup()
-                                            .addComponent(ISBNLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(ISBNInputField, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGap(0, 0, Short.MAX_VALUE))))
+                            .addGroup(paymentDetailsPanelLayout.createSequentialGroup()
+                                .addComponent(emailDisplayLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(emailInputTextField))
+                            .addGroup(paymentDetailsPanelLayout.createSequentialGroup()
+                                .addGroup(paymentDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(paymentDetailsPanelLayout.createSequentialGroup()
+                                        .addComponent(dayInputSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(yearInputField, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(paymentDetailsPanelLayout.createSequentialGroup()
+                                        .addComponent(ISBNLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(ISBNInputField, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap())
                     .addGroup(paymentDetailsPanelLayout.createSequentialGroup()
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jCheckBox1)
                         .addGap(0, 0, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paymentDetailsPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(postalCardErrorDisplay)
+                .addGap(87, 87, 87))
         );
         paymentDetailsPanelLayout.setVerticalGroup(
             paymentDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -199,7 +204,7 @@ public class UI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(cardDetailsHeader)
                 .addGap(12, 12, 12)
-                .addComponent(jLabel1)
+                .addComponent(emailAddressErrorDisplau)
                 .addGap(7, 7, 7)
                 .addGroup(paymentDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(emailDisplayLabel)
@@ -228,14 +233,14 @@ public class UI extends javax.swing.JFrame {
                 .addGroup(paymentDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jCheckBox1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(postalCardErrorDisplay)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(paymentDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(postalCodeLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel4)
+                .addComponent(ISBNErrorDisplay)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(paymentDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ISBNLabel)
@@ -263,24 +268,23 @@ public class UI extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(paymentDetailsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(mediaAtifactHeader)
                 .addGap(154, 154, 154))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(paymentDetailsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(mediaAtifactHeader)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(paymentDetailsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(paymentDetailsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -295,9 +299,12 @@ public class UI extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
+        System.out.println("STARTED");
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                System.out.println(info.getName());
+                if ("Metal".equals(info.getName())) {
+                    System.out.println("CHOSEN!");
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -325,6 +332,7 @@ public class UI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField CVVInputField;
     private javax.swing.JLabel CVVLabel;
+    private javax.swing.JLabel ISBNErrorDisplay;
     private javax.swing.JTextField ISBNInputField;
     private javax.swing.JLabel ISBNLabel;
     private javax.swing.JLabel cardDetailsHeader;
@@ -332,19 +340,18 @@ public class UI extends javax.swing.JFrame {
     private javax.swing.JTextField cardNumberInputField;
     private javax.swing.JLabel cardNumberLabel;
     private javax.swing.JSpinner dayInputSpinner;
+    private javax.swing.JLabel emailAddressErrorDisplau;
     private javax.swing.JLabel emailDisplayLabel;
     private javax.swing.JTextField emailInputTextField;
     private javax.swing.JLabel experationLabel;
     private javax.swing.JLabel expirationErrorDisplayLabel;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JComboBox<String> jComboBox3;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JSeparator jSeparator1;
