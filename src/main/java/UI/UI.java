@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
  * @author darrenl
  */
 public class UI extends javax.swing.JFrame {
-
+       public int maxPrice = 1234567;
     /**
      * Creates new form UI
      */
@@ -129,6 +129,9 @@ public class UI extends javax.swing.JFrame {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 CVVInputFieldKeyPressed(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                CVVInputFieldKeyTyped(evt);
+            }
         });
 
         postalCodeLabel.setForeground(new java.awt.Color(255, 255, 255));
@@ -147,6 +150,7 @@ public class UI extends javax.swing.JFrame {
             }
         });
 
+        productLabelHeader.setForeground(new java.awt.Color(255, 255, 255));
         productLabelHeader.setText("                           --------------------------- Product Details -------------------------");
 
         ISBNLabel.setForeground(new java.awt.Color(255, 255, 255));
@@ -162,7 +166,7 @@ public class UI extends javax.swing.JFrame {
         ISBNErrorDisplay.setText("Please enter a valid 10 Digit ISBN");
 
         expirationErrorDisplayLabel.setForeground(new java.awt.Color(255, 0, 0));
-        expirationErrorDisplayLabel.setText("Your Expiration date is too far");
+        expirationErrorDisplayLabel.setText("Please enter a valid experation Date!");
 
         cardNumberErrorDisplayLabel.setForeground(new java.awt.Color(255, 0, 0));
         cardNumberErrorDisplayLabel.setText("Your card number is too long");
@@ -361,6 +365,10 @@ public class UI extends javax.swing.JFrame {
             if (validEmail == false) {
                 emailAddressErrorDisplau.setVisible(true);
             }
+            else{
+                emailAddressErrorDisplau.setVisible(false);
+                validEmail = true;
+            }
         }
 
         //Checks the cardNumber!
@@ -370,6 +378,10 @@ public class UI extends javax.swing.JFrame {
         } else if (cardNumberInputField.getText().length() < 16) {
             cardNumberErrorDisplayLabel.setText("Please enter a 16 Digit valid Credit Card Number");
             cardNumberErrorDisplayLabel.setVisible(true);
+        }
+        else{
+            cardNumberErrorDisplayLabel.setVisible(false);
+            validCreditCardNumber = true;
         }
 
         if (yearInputField.getText().equals("----") || CVVInputField.getText().equals("---")) {
@@ -382,25 +394,44 @@ public class UI extends javax.swing.JFrame {
                 expirationErrorDisplayLabel.setVisible(true);
             } else {
                 validCardExpirationDate = true;
+                expirationErrorDisplayLabel.setVisible(false);
             }
         }
 
-        //Does a check to see if the box is checked
-        if (recieptCheckBox.isSelected() == true) {
+        if (ISBNInputField.getText().equals("")) {
+            ISBNErrorDisplay.setText("Please enter a valid ISBN ");
+            ISBNErrorDisplay.setVisible(true);
+
+        } else {
+            validISBN = Checks.isValidISBN(Integer.parseInt(ISBNInputField.getText()));
+            if (validISBN == false) {
+                ISBNErrorDisplay.setVisible(true);
+            }
+            else{
+                ISBNErrorDisplay.setVisible(false);
+                validISBN = true;
+            }
+        }
+
+        if (priceOfItemInputField.getText().equals("")) {
+            priceErrorDisplay.setText("Please enter a price!");
+            priceErrorDisplay.setVisible(true);
+        } else {
+            validPrice = Checks.priceRangeCheck(maxPrice, priceOfItemInputField.getText());
+            if (validPrice == false) {
+                priceErrorDisplay.setVisible(true);
+            }
+            else{
+                priceErrorDisplay.setVisible(false);
+                validPrice = true;
+            }
+
+        }
+                //Does a check to see if the box is checked
+        if (recieptCheckBox.isSelected() == true &&  validEmail == true && validCreditCardNumber == true && validCardExpirationDate == true && validPrice == true && validISBN == true) {
             Checks.printReciept(Integer.parseInt(priceOfItemInputField.getText()), Integer.parseInt(ISBNInputField.getText()));
         }
 
-        //Checks the ISBN
-        validISBN = Checks.isValidISBN(Integer.parseInt(ISBNInputField.getText()));
-        if (validISBN == false) {
-            ISBNErrorDisplay.setVisible(true);
-        }
-
-        //Checks if the price is valid
-        validPrice = Checks.priceRangeCheck(99999, priceOfItemInputField.getText());
-        if (validPrice == false) {
-            priceErrorDisplay.setVisible(true);
-        }
 
     }//GEN-LAST:event_purchaseButtonActionPerformed
 
@@ -455,17 +486,30 @@ public class UI extends javax.swing.JFrame {
             priceErrorDisplay.setVisible(true);
 
         }
+        
+       
+        int maxLength = (maxPrice + "").length();
+        if (priceOfItemInputField.getText().length() >= maxLength) {
+            evt.consume();
+        }
     }//GEN-LAST:event_priceOfItemInputFieldKeyTyped
 
     private void ISBNInputFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ISBNInputFieldKeyTyped
-        char c = evt.getKeyChar();
-        if (!Character.isDigit(c)) {
-            evt.consume();
-            ISBNErrorDisplay.setText("Please ensure you only enter numbers!");
-            ISBNErrorDisplay.setVisible(true);
-
-        }
+//        char c = evt.getKeyChar();
+//        if (!Character.isDigit(c)) {
+//            evt.consume();
+//            ISBNErrorDisplay.setText("Please ensure you only enter numbers!");
+//            ISBNErrorDisplay.setVisible(true);
+//
+//        }
     }//GEN-LAST:event_ISBNInputFieldKeyTyped
+
+    private void CVVInputFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CVVInputFieldKeyTyped
+        int maxLength = 3;
+        if (CVVInputField.getText().length() >= maxLength) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_CVVInputFieldKeyTyped
 
     /**
      * @param args the command line arguments

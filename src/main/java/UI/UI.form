@@ -303,6 +303,7 @@
           <Events>
             <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="CVVInputFieldFocusGained"/>
             <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="CVVInputFieldKeyPressed"/>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="CVVInputFieldKeyTyped"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel16">
@@ -330,6 +331,9 @@
         </Component>
         <Component class="javax.swing.JLabel" name="productLabelHeader">
           <Properties>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="                           --------------------------- Product Details -------------------------"/>
           </Properties>
         </Component>
@@ -359,7 +363,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="0" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Your Expiration date is too far"/>
+            <Property name="text" type="java.lang.String" value="Please enter a valid experation Date!"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="cardNumberErrorDisplayLabel">

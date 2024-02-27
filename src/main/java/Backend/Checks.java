@@ -131,37 +131,30 @@ public class Checks {
     public static boolean isValidISBN(int inputISBN) {
         String isbnString = String.valueOf(inputISBN);
 
-        // Remove any hyphens
         isbnString = isbnString.replace("-", "");
 
-        // Check if the length is 10
         if (isbnString.length() != 10) {
             return false;
         }
-
-        // Check if the first 9 characters are digits
         for (int i = 0; i < 9; i++) {
             if (!Character.isDigit(isbnString.charAt(i))) {
                 return false;
             }
         }
 
-        // Calculate the weighted sum
         int weightedSum = 0;
         for (int i = 0; i < 9; i++) {
             weightedSum += (i + 1) * Character.getNumericValue(isbnString.charAt(i));
         }
-
-        // Check if the last character is a digit or 'X'
+        
+        
         char lastChar = isbnString.charAt(9);
         if (!Character.isDigit(lastChar) && lastChar != 'X') {
             return false;
         }
-
-        // For 'X', its value is 10
         int lastDigit = (lastChar == 'X') ? 10 : Character.getNumericValue(lastChar);
 
-        // Check if the sum modulo 11 equals the last digit
+
         return (weightedSum + lastDigit) % 11 == 0;
     }
 }
