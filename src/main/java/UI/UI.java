@@ -3,7 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package UI;
+
 import Backend.Checks;
+import java.time.LocalDateTime;
+
 /**
  *
  * @author darrenl
@@ -18,7 +21,7 @@ public class UI extends javax.swing.JFrame {
         emailAddressErrorDisplau.setVisible(false);
         cardNumberErrorDisplayLabel.setVisible(false);
         expirationErrorDisplayLabel.setVisible(false);
-        postalCardErrorDisplay.setVisible(false);
+        priceErrorDisplay.setVisible(false);
         ISBNErrorDisplay.setVisible(false);
     }
 
@@ -38,7 +41,6 @@ public class UI extends javax.swing.JFrame {
         jLabel18 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel8 = new javax.swing.JLabel();
-        mediaAtifactHeader = new javax.swing.JLabel();
         paymentDetailsPanel = new javax.swing.JPanel();
         cardDetailsHeader = new javax.swing.JLabel();
         experationLabel = new javax.swing.JLabel();
@@ -50,7 +52,7 @@ public class UI extends javax.swing.JFrame {
         CVVInputField = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         postalCodeLabel = new javax.swing.JLabel();
-        jTextField8 = new javax.swing.JTextField();
+        priceOfItemInputField = new javax.swing.JTextField();
         purchaseButton = new javax.swing.JButton();
         productLabelHeader = new javax.swing.JLabel();
         ISBNLabel = new javax.swing.JLabel();
@@ -58,12 +60,12 @@ public class UI extends javax.swing.JFrame {
         ISBNErrorDisplay = new javax.swing.JLabel();
         expirationErrorDisplayLabel = new javax.swing.JLabel();
         cardNumberErrorDisplayLabel = new javax.swing.JLabel();
-        postalCardErrorDisplay = new javax.swing.JLabel();
+        priceErrorDisplay = new javax.swing.JLabel();
         emailDisplayLabel = new javax.swing.JLabel();
         emailInputTextField = new javax.swing.JTextField();
         emailAddressErrorDisplau = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        emailReceiptLable = new javax.swing.JLabel();
+        recieptCheckBox = new javax.swing.JCheckBox();
         jPanel3 = new javax.swing.JPanel();
 
         jLabel2.setText("jLabel2");
@@ -78,53 +80,112 @@ public class UI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        mediaAtifactHeader.setText("Book Purchase");
-
         paymentDetailsPanel.setBackground(new java.awt.Color(0, 0, 0));
 
+        cardDetailsHeader.setForeground(new java.awt.Color(255, 255, 255));
         cardDetailsHeader.setText("----------------- Card Details ---------------------");
 
+        experationLabel.setForeground(new java.awt.Color(255, 255, 255));
         experationLabel.setText("Expiration Date:");
 
         dayInputSpinner.setModel(new javax.swing.SpinnerNumberModel(1, 1, 12, 1));
 
         yearInputField.setText("----");
-        yearInputField.setFocusable(false);
+        yearInputField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                yearInputFieldFocusGained(evt);
+            }
+        });
+        yearInputField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                yearInputFieldKeyTyped(evt);
+            }
+        });
 
+        CVVLabel.setForeground(new java.awt.Color(255, 255, 255));
         CVVLabel.setText("CVV");
 
+        cardNumberLabel.setForeground(new java.awt.Color(255, 255, 255));
         cardNumberLabel.setText("Card Number:");
 
-        CVVInputField.setText("---");
+        cardNumberInputField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cardNumberInputFieldActionPerformed(evt);
+            }
+        });
+        cardNumberInputField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cardNumberInputFieldKeyTyped(evt);
+            }
+        });
 
+        CVVInputField.setText("---");
+        CVVInputField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                CVVInputFieldFocusGained(evt);
+            }
+        });
+        CVVInputField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                CVVInputFieldKeyPressed(evt);
+            }
+        });
+
+        postalCodeLabel.setForeground(new java.awt.Color(255, 255, 255));
         postalCodeLabel.setText("Price of Item:");
 
+        priceOfItemInputField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                priceOfItemInputFieldKeyTyped(evt);
+            }
+        });
+
         purchaseButton.setText("Purchase");
+        purchaseButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                purchaseButtonActionPerformed(evt);
+            }
+        });
 
-        productLabelHeader.setText("                           -------------- Product Details -------------------------");
+        productLabelHeader.setText("                           --------------------------- Product Details -------------------------");
 
+        ISBNLabel.setForeground(new java.awt.Color(255, 255, 255));
         ISBNLabel.setText("ISBN:");
 
+        ISBNInputField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                ISBNInputFieldKeyTyped(evt);
+            }
+        });
+
         ISBNErrorDisplay.setForeground(new java.awt.Color(255, 0, 0));
-        ISBNErrorDisplay.setText("                           Please enter a valid 10 Digit ISBN");
+        ISBNErrorDisplay.setText("Please enter a valid 10 Digit ISBN");
 
         expirationErrorDisplayLabel.setForeground(new java.awt.Color(255, 0, 0));
         expirationErrorDisplayLabel.setText("Your Expiration date is too far");
 
         cardNumberErrorDisplayLabel.setForeground(new java.awt.Color(255, 0, 0));
-        cardNumberErrorDisplayLabel.setText("                Your card number is too long");
+        cardNumberErrorDisplayLabel.setText("Your card number is too long");
 
-        postalCardErrorDisplay.setForeground(new java.awt.Color(255, 0, 0));
-        postalCardErrorDisplay.setText("PLEASE ENTER A VALID PRICE");
+        priceErrorDisplay.setForeground(new java.awt.Color(255, 0, 0));
+        priceErrorDisplay.setText("PLEASE ENTER A VALID PRICE");
 
+        emailDisplayLabel.setForeground(new java.awt.Color(255, 255, 255));
         emailDisplayLabel.setText("Email:");
 
+        emailInputTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                emailInputTextFieldKeyPressed(evt);
+            }
+        });
+
         emailAddressErrorDisplau.setForeground(new java.awt.Color(255, 0, 0));
-        emailAddressErrorDisplau.setText("                      Please enter a valid email address");
+        emailAddressErrorDisplau.setText("Please enter a valid email address");
 
-        jLabel3.setText("Email Recipt:");
+        emailReceiptLable.setForeground(new java.awt.Color(255, 255, 255));
+        emailReceiptLable.setText("Email Recipt:");
 
-        jCheckBox1.setText("Reciept");
+        recieptCheckBox.setText("Reciept");
 
         javax.swing.GroupLayout paymentDetailsPanelLayout = new javax.swing.GroupLayout(paymentDetailsPanel);
         paymentDetailsPanel.setLayout(paymentDetailsPanelLayout);
@@ -133,13 +194,6 @@ public class UI extends javax.swing.JFrame {
             .addGroup(paymentDetailsPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(paymentDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paymentDetailsPanelLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(paymentDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paymentDetailsPanelLayout.createSequentialGroup()
-                                .addComponent(ISBNErrorDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(58, 58, 58))
-                            .addComponent(emailAddressErrorDisplau, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(paymentDetailsPanelLayout.createSequentialGroup()
                         .addGroup(paymentDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(purchaseButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -149,61 +203,63 @@ public class UI extends javax.swing.JFrame {
                             .addGroup(paymentDetailsPanelLayout.createSequentialGroup()
                                 .addComponent(experationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(expirationErrorDisplayLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(paymentDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(CVVInputField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(CVVLabel)))
+                                .addComponent(expirationErrorDisplayLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                                .addComponent(CVVLabel)
+                                .addGap(42, 42, 42))
                             .addGroup(paymentDetailsPanelLayout.createSequentialGroup()
                                 .addComponent(cardNumberLabel)
-                                .addGroup(paymentDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(paymentDetailsPanelLayout.createSequentialGroup()
-                                        .addGap(32, 32, 32)
-                                        .addComponent(cardNumberErrorDisplayLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGroup(paymentDetailsPanelLayout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addComponent(cardNumberInputField))))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paymentDetailsPanelLayout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(cardDetailsHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(10, 10, 10))
+                                .addGap(18, 18, 18)
+                                .addComponent(cardNumberInputField))
                             .addComponent(productLabelHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(paymentDetailsPanelLayout.createSequentialGroup()
-                                .addComponent(postalCodeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField8))
+                                .addComponent(dayInputSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(yearInputField, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(CVVInputField, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(paymentDetailsPanelLayout.createSequentialGroup()
                                 .addComponent(emailDisplayLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(emailInputTextField))
-                            .addGroup(paymentDetailsPanelLayout.createSequentialGroup()
                                 .addGroup(paymentDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(paymentDetailsPanelLayout.createSequentialGroup()
-                                        .addComponent(dayInputSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(yearInputField, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(emailAddressErrorDisplau, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(emailInputTextField)
+                                    .addComponent(cardNumberErrorDisplayLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(paymentDetailsPanelLayout.createSequentialGroup()
+                                .addComponent(ISBNLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(paymentDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(paymentDetailsPanelLayout.createSequentialGroup()
-                                        .addComponent(ISBNLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(ISBNInputField, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 0, Short.MAX_VALUE)))
+                                        .addComponent(ISBNErrorDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(ISBNInputField)))
+                            .addGroup(paymentDetailsPanelLayout.createSequentialGroup()
+                                .addComponent(postalCodeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(paymentDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(paymentDetailsPanelLayout.createSequentialGroup()
+                                        .addComponent(priceErrorDisplay)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(priceOfItemInputField))))
                         .addContainerGap())
                     .addGroup(paymentDetailsPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(emailReceiptLable, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jCheckBox1)
-                        .addGap(0, 0, Short.MAX_VALUE))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paymentDetailsPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(postalCardErrorDisplay)
-                .addGap(87, 87, 87))
+                        .addComponent(recieptCheckBox)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paymentDetailsPanelLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(cardDetailsHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(100, 100, 100))))
         );
         paymentDetailsPanelLayout.setVerticalGroup(
             paymentDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(paymentDetailsPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(cardDetailsHeader)
-                .addGap(12, 12, 12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(emailAddressErrorDisplau)
                 .addGap(7, 7, 7)
                 .addGroup(paymentDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -231,13 +287,13 @@ public class UI extends javax.swing.JFrame {
                 .addComponent(productLabelHeader)
                 .addGap(18, 18, 18)
                 .addGroup(paymentDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jCheckBox1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(postalCardErrorDisplay)
+                    .addComponent(emailReceiptLable)
+                    .addComponent(recieptCheckBox))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
+                .addComponent(priceErrorDisplay)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(paymentDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(priceOfItemInputField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(postalCodeLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(ISBNErrorDisplay)
@@ -254,7 +310,7 @@ public class UI extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 561, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -270,25 +326,146 @@ public class UI extends javax.swing.JFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(mediaAtifactHeader)
-                .addGap(154, 154, 154))
-            .addGroup(layout.createSequentialGroup()
                 .addComponent(paymentDetailsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(18, 18, 18))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(mediaAtifactHeader)
-                .addGap(18, 18, 18)
-                .addComponent(paymentDetailsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(paymentDetailsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void emailInputTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_emailInputTextFieldKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_emailInputTextFieldKeyPressed
+
+    private void purchaseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_purchaseButtonActionPerformed
+        boolean validEmail = false;
+        boolean validCreditCardNumber = false;
+        boolean validCardExpirationDate = false;
+        boolean validPrice = false;
+        boolean validISBN = false;
+
+        //Checks the email
+        if (emailInputTextField.getText().equals("")) {
+            emailAddressErrorDisplau.setText("Please enter an email address!");
+            emailAddressErrorDisplau.setVisible(true);
+        } else {
+            validEmail = Checks.emailValdity(emailInputTextField.getText());
+            if (validEmail == false) {
+                emailAddressErrorDisplau.setVisible(true);
+            }
+        }
+
+        //Checks the cardNumber!
+        if (cardNumberInputField.equals("")) {
+            cardNumberErrorDisplayLabel.setText("Please enter a card Number!");
+            cardNumberErrorDisplayLabel.setVisible(true);
+        } else if (cardNumberInputField.getText().length() < 16) {
+            cardNumberErrorDisplayLabel.setText("Please enter a 16 Digit valid Credit Card Number");
+            cardNumberErrorDisplayLabel.setVisible(true);
+        }
+
+        if (yearInputField.getText().equals("----") || CVVInputField.getText().equals("---")) {
+            expirationErrorDisplayLabel.setText("Please enter your card details!");
+            expirationErrorDisplayLabel.setVisible(true);
+
+        } else {
+            LocalDateTime cardDate = LocalDateTime.of(Integer.parseInt(yearInputField.getText()), (int) dayInputSpinner.getValue(), 1, 0, 0);
+            if (Checks.cardDateValidity(cardDate) == false) {
+                expirationErrorDisplayLabel.setVisible(true);
+            } else {
+                validCardExpirationDate = true;
+            }
+        }
+
+        //Does a check to see if the box is checked
+        if (recieptCheckBox.isSelected() == true) {
+            Checks.printReciept(Integer.parseInt(priceOfItemInputField.getText()), Integer.parseInt(ISBNInputField.getText()));
+        }
+
+        //Checks the ISBN
+        validISBN = Checks.isValidISBN(Integer.parseInt(ISBNInputField.getText()));
+        if (validISBN == false) {
+            ISBNErrorDisplay.setVisible(true);
+        }
+
+        //Checks if the price is valid
+        validPrice = Checks.priceRangeCheck(99999, priceOfItemInputField.getText());
+        if (validPrice == false) {
+            priceErrorDisplay.setVisible(true);
+        }
+
+    }//GEN-LAST:event_purchaseButtonActionPerformed
+
+    private void CVVInputFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CVVInputFieldKeyPressed
+        int maxLength = 3;
+        if (yearInputField.getText().length() >= maxLength) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_CVVInputFieldKeyPressed
+
+    private void CVVInputFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_CVVInputFieldFocusGained
+        CVVInputField.setText("");
+    }//GEN-LAST:event_CVVInputFieldFocusGained
+
+    private void cardNumberInputFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cardNumberInputFieldKeyTyped
+        char c = evt.getKeyChar();
+        if (!Character.isDigit(c)) {
+            evt.consume();
+            cardNumberErrorDisplayLabel.setText("Please ensure you only enter numbers!");
+            cardNumberErrorDisplayLabel.setVisible(true);
+
+        }
+
+        int maxLenght = 16;
+        if (cardNumberInputField.getText().length() >= maxLenght) {
+            evt.consume();
+            cardNumberErrorDisplayLabel.setText("Card Number Too Long!");
+            cardNumberErrorDisplayLabel.setVisible(true);
+        }
+    }//GEN-LAST:event_cardNumberInputFieldKeyTyped
+
+    private void cardNumberInputFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cardNumberInputFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cardNumberInputFieldActionPerformed
+
+    private void yearInputFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_yearInputFieldKeyTyped
+        int maxLength = 4; // Maximum number of characters allowed
+        if (yearInputField.getText().length() >= maxLength) {
+            evt.consume(); // Consume the key event to prevent further input
+        }
+    }//GEN-LAST:event_yearInputFieldKeyTyped
+
+    private void yearInputFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_yearInputFieldFocusGained
+        yearInputField.setText("");
+    }//GEN-LAST:event_yearInputFieldFocusGained
+
+    private void priceOfItemInputFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_priceOfItemInputFieldKeyTyped
+        char c = evt.getKeyChar();
+        if (!Character.isDigit(c)) {
+            evt.consume();
+            priceErrorDisplay.setText("Please ensure you only enter numbers!");
+            priceErrorDisplay.setVisible(true);
+
+        }
+    }//GEN-LAST:event_priceOfItemInputFieldKeyTyped
+
+    private void ISBNInputFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ISBNInputFieldKeyTyped
+        char c = evt.getKeyChar();
+        if (!Character.isDigit(c)) {
+            evt.consume();
+            ISBNErrorDisplay.setText("Please ensure you only enter numbers!");
+            ISBNErrorDisplay.setVisible(true);
+
+        }
+    }//GEN-LAST:event_ISBNInputFieldKeyTyped
 
     /**
      * @param args the command line arguments
@@ -319,7 +496,7 @@ public class UI extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(UI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        
+
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -343,26 +520,25 @@ public class UI extends javax.swing.JFrame {
     private javax.swing.JLabel emailAddressErrorDisplau;
     private javax.swing.JLabel emailDisplayLabel;
     private javax.swing.JTextField emailInputTextField;
+    private javax.swing.JLabel emailReceiptLable;
     private javax.swing.JLabel experationLabel;
     private javax.swing.JLabel expirationErrorDisplayLabel;
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JLabel mediaAtifactHeader;
     private javax.swing.JPanel paymentDetailsPanel;
-    private javax.swing.JLabel postalCardErrorDisplay;
     private javax.swing.JLabel postalCodeLabel;
+    private javax.swing.JLabel priceErrorDisplay;
+    private javax.swing.JTextField priceOfItemInputField;
     private javax.swing.JLabel productLabelHeader;
     private javax.swing.JButton purchaseButton;
+    private javax.swing.JCheckBox recieptCheckBox;
     private javax.swing.JTextField yearInputField;
     // End of variables declaration//GEN-END:variables
 }

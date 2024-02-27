@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
  */
 public class Checks {
 
-    public boolean emailValdity(String email) {
+    public static boolean emailValdity(String email) {
         // The checks required for the email
         boolean hasASpecial = false;
         boolean hasADot = false;
@@ -65,18 +65,21 @@ public class Checks {
         }
     }
 
-    public boolean cardDateValidity(LocalDateTime cardExperationDate) {
+    public static boolean cardDateValidity(LocalDateTime cardExperationDate) {
         boolean isCorrectCardDate = true;
-
+        
         if (cardExperationDate.isAfter(cardExperationDate.plusYears(3))) {
             isCorrectCardDate = false;
         }
-
+        
+        if(cardExperationDate.isBefore(LocalDateTime.now())){
+            isCorrectCardDate = false;
+        }
         return isCorrectCardDate;
 
     }
 
-    public boolean cardNumberCheck(String cardNumber) {
+    public static boolean cardNumberCheck(String cardNumber) {
         boolean correctLenght = false;
         boolean noIllegalCharactersPresent = true;
         boolean cardNumberValid = false;
@@ -103,11 +106,11 @@ public class Checks {
         return cardNumberValid;
     }
 
-    public void printReciept(int priceOfItem, int ISBNofItem) {
+    public static void printReciept(int priceOfItem, int ISBNofItem) {
         System.out.println("-------------- Recpiept ------------- \nPrice Of Item: R" + priceOfItem + "\nISBN of Item: " + ISBNofItem + "\n\n---------------------- THANK YOU FOR YOUR PURCHASE! --------------------");
     }
 
-    public boolean lengthCheck(int length, String input) {
+    public static boolean lengthCheck(int length, String input) {
         boolean isCorrectLength = true;
 
         if (input.length() > length || input.length() < length) {
@@ -117,7 +120,7 @@ public class Checks {
         return isCorrectLength;
     }
 
-    public boolean priceRangeCheck(int maxPrice, String input) {
+    public static boolean priceRangeCheck(int maxPrice, String input) {
         if (input.length() > maxPrice) {
             return false;
         } else {
@@ -125,7 +128,7 @@ public class Checks {
         }
     }
 
-    public boolean isValidISBN(int inputISBN) {
+    public static boolean isValidISBN(int inputISBN) {
         String isbnString = String.valueOf(inputISBN);
 
         // Remove any hyphens
