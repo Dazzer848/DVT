@@ -68,7 +68,7 @@ public class Checks {
     public static boolean cardDateValidity(LocalDateTime cardExperationDate) {
         boolean isCorrectCardDate = true;
         
-        if (cardExperationDate.isAfter(cardExperationDate.plusYears(3))) {
+        if (cardExperationDate.isAfter(LocalDateTime.now().plusYears(3))) {
             isCorrectCardDate = false;
         }
         
@@ -121,31 +121,44 @@ public class Checks {
     }
 
     public static boolean priceRangeCheck(int maxPrice, String input) {
+        int integerInput = Integer.parseInt(input);
+        
         if (input.length() > maxPrice) {
             return false;
-        } else {
+        }
+        else if(integerInput < 1){
+            return false;
+        }
+            else {
             return true;
         }
     }
 
-    public static boolean isValidISBN(String inputISBN) {
-
-        //isbnString = isbnString.replace("-", "");
-
-        if (inputISBN.length() != 10) {
+    public static boolean isValidISBN10(String isbn) {
+        if (isbn == null || isbn.length() != 10) {
             return false;
         }
-        
+
         int sum = 0;
-        for(int i = 0; i < 10; i++){
-            sum += Character.getNumericValue(inputISBN.charAt(i)) * (10-i);
-            System.out.println(Character.getNumericValue(inputISBN.charAt(i)));
-            System.out.println(sum);
+        for (int i = 0; i < 9; i++) {
+            char digit = isbn.charAt(i);
+            if (!Character.isDigit(digit)) {
+                return false;
+            }
+            sum += (digit - '0') * (10 - i);
         }
-        
-        int reminder = sum%11;
 
+        char lastChar = isbn.charAt(9);
+        if (lastChar == 'X') {
+            sum += 10;
+        } else if (Character.isDigit(lastChar)) {
+            sum += lastChar - '0';
+        } else {
+            return false;
+        }
 
-        return 11 - reminder == Character.getNumericValue(inputISBN.charAt(9));
+        return sum % 11 == 0;
     }
 }
+
+

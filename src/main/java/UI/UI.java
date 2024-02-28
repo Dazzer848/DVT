@@ -5,7 +5,10 @@
 package UI;
 
 import Backend.Checks;
+import java.sql.SQLOutput;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import javax.swing.JOptionPane;
 
 /**
@@ -13,12 +16,15 @@ import javax.swing.JOptionPane;
  * @author darrenl
  */
 public class UI extends javax.swing.JFrame {
-       public int maxPrice = 9999999;
+    
+    public int maxPrice = 9999999;
+
     /**
      * Creates new form UI
      */
     public UI() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -63,6 +69,7 @@ public class UI extends javax.swing.JFrame {
         emailReceiptLable = new javax.swing.JLabel();
         recieptCheckBox = new javax.swing.JCheckBox();
         jPanel3 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
 
         jLabel2.setText("jLabel2");
 
@@ -75,11 +82,12 @@ public class UI extends javax.swing.JFrame {
         jLabel8.setText("jLabel8");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(0, 0, 0));
 
         paymentDetailsPanel.setBackground(new java.awt.Color(0, 0, 0));
 
         cardDetailsHeader.setForeground(new java.awt.Color(255, 255, 255));
-        cardDetailsHeader.setText("----------------- Card Details ---------------------");
+        cardDetailsHeader.setText("------------------------------ Card Details -----------------------------");
 
         experationLabel.setForeground(new java.awt.Color(255, 255, 255));
         experationLabel.setText("Expiration Date:");
@@ -203,15 +211,15 @@ public class UI extends javax.swing.JFrame {
                             .addGroup(paymentDetailsPanelLayout.createSequentialGroup()
                                 .addComponent(experationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(expirationErrorDisplayLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                                .addComponent(expirationErrorDisplayLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(CVVLabel)
                                 .addGap(42, 42, 42))
-                            .addGroup(paymentDetailsPanelLayout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paymentDetailsPanelLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(cardNumberLabel)
-                                .addGap(18, 18, 18)
-                                .addComponent(cardNumberInputField))
-                            .addComponent(productLabelHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(27, 27, 27)
+                                .addComponent(cardNumberInputField, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(paymentDetailsPanelLayout.createSequentialGroup()
                                 .addComponent(dayInputSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
@@ -220,13 +228,17 @@ public class UI extends javax.swing.JFrame {
                                 .addComponent(CVVInputField, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(paymentDetailsPanelLayout.createSequentialGroup()
                                 .addComponent(emailDisplayLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
                                 .addGroup(paymentDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(paymentDetailsPanelLayout.createSequentialGroup()
-                                        .addComponent(emailAddressErrorDisplau, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addComponent(emailInputTextField)
-                                    .addComponent(cardNumberErrorDisplayLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                        .addGap(18, 18, Short.MAX_VALUE)
+                                        .addGroup(paymentDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(paymentDetailsPanelLayout.createSequentialGroup()
+                                                .addComponent(emailAddressErrorDisplau, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(0, 0, Short.MAX_VALUE))
+                                            .addComponent(cardNumberErrorDisplayLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addGroup(paymentDetailsPanelLayout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(emailInputTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(paymentDetailsPanelLayout.createSequentialGroup()
                                 .addComponent(ISBNLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -248,18 +260,22 @@ public class UI extends javax.swing.JFrame {
                         .addComponent(emailReceiptLable, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(recieptCheckBox)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paymentDetailsPanelLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(cardDetailsHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(100, 100, 100))))
+                        .addGap(0, 0, Short.MAX_VALUE))))
+            .addGroup(paymentDetailsPanelLayout.createSequentialGroup()
+                .addGap(57, 57, 57)
+                .addComponent(productLabelHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 485, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paymentDetailsPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(cardDetailsHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(62, 62, 62))
         );
         paymentDetailsPanelLayout.setVerticalGroup(
             paymentDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(paymentDetailsPanelLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(12, 12, 12)
                 .addComponent(cardDetailsHeader)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(emailAddressErrorDisplau)
                 .addGap(7, 7, 7)
                 .addGroup(paymentDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -283,13 +299,13 @@ public class UI extends javax.swing.JFrame {
                     .addComponent(CVVInputField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel16)
-                .addGap(20, 20, 20)
+                .addGap(26, 26, 26)
                 .addComponent(productLabelHeader)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
                 .addGroup(paymentDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(emailReceiptLable)
                     .addComponent(recieptCheckBox))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
+                .addGap(40, 40, 40)
                 .addComponent(priceErrorDisplay)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(paymentDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -310,32 +326,43 @@ public class UI extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 561, Short.MAX_VALUE)
+            .addGap(0, 6, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 50, Short.MAX_VALUE)
         );
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel1.setText("-------------------------------- BOOK PURCHASING MACHINE 100000 -------------------------");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(paymentDetailsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18))
+                .addContainerGap(35, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(paymentDetailsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(paymentDetailsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addContainerGap(17, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(495, 495, 495)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(paymentDetailsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(18, Short.MAX_VALUE))))
         );
 
         pack();
@@ -352,7 +379,6 @@ public class UI extends javax.swing.JFrame {
         boolean validPrice = false;
         boolean validISBN = false;
         boolean emailReceipt = false;
-        
 
         //Checks the email
         if (emailInputTextField.getText().equals("")) {
@@ -361,8 +387,7 @@ public class UI extends javax.swing.JFrame {
             validEmail = Checks.emailValdity(emailInputTextField.getText());
             if (validEmail == false) {
                 emailAddressErrorDisplau.setText("Please enter a valid email!");
-            }
-            else{
+            } else {
                 validEmail = true;
                 emailAddressErrorDisplau.setText("");
             }
@@ -373,14 +398,18 @@ public class UI extends javax.swing.JFrame {
             cardNumberErrorDisplayLabel.setText("Please enter a card Number!");
         } else if (cardNumberInputField.getText().length() < 16) {
             cardNumberErrorDisplayLabel.setText("Please enter a 16 Digit valid Credit Card Number");
-        }
-        else{
+        } else {
             validCreditCardNumber = true;
             cardNumberErrorDisplayLabel.setText(" ");
         }
-
-        if (yearInputField.getText().equals("----") || CVVInputField.getText().equals("---")) {
-            expirationErrorDisplayLabel.setText("Please enter your card details!");
+        
+        if ((CVVInputField.getText().equals("---") || CVVInputField.getText().isEmpty() || CVVInputField.getText().length() < 3) && (yearInputField.getText().equals("----") || yearInputField.getText().isEmpty())) {
+            expirationErrorDisplayLabel.setText("Please enter both an experation date and a CVV");
+            
+        } else if (CVVInputField.getText().equals("---") || CVVInputField.getText().isEmpty() || CVVInputField.getText().length() < 3) {
+            expirationErrorDisplayLabel.setText("Please enter a valid CVV!");
+        } else if (yearInputField.getText().equals("----") || yearInputField.getText().isEmpty()) {
+            expirationErrorDisplayLabel.setText("Please enter your card's experation date");
         } else {
             LocalDateTime cardDate = LocalDateTime.of(Integer.parseInt(yearInputField.getText()), (int) dayInputSpinner.getValue(), 1, 0, 0);
             if (Checks.cardDateValidity(cardDate) == false) {
@@ -390,45 +419,43 @@ public class UI extends javax.swing.JFrame {
                 expirationErrorDisplayLabel.setText("");
             }
         }
-
+        
         if (ISBNInputField.getText().isEmpty()) {
             ISBNErrorDisplay.setText("Please enter a ISBN ");
-
+            
         } else {
-            validISBN = Checks.isValidISBN(ISBNInputField.getText());
+            validISBN = Checks.isValidISBN10(ISBNInputField.getText());
             if (validISBN == false) {
                 ISBNErrorDisplay.setText("Please enter a Valid ISBN");
-            }
-            else {
+            } else {
                 validISBN = true;
                 ISBNErrorDisplay.setText(" ");
             }
         }
-
-        if (priceOfItemInputField.getText().equals("")) {
+        
+        if (priceOfItemInputField.getText().isEmpty()) {
             priceErrorDisplay.setText("Please enter a price!");
         } else {
             validPrice = Checks.priceRangeCheck(maxPrice, priceOfItemInputField.getText());
             if (validPrice == false) {
                 priceErrorDisplay.setText("Please enter a valid price!");
-            }
-            else{
+            } else {
                 validPrice = true;
                 priceErrorDisplay.setText("");
             }
-
+            
         }
-                //Does a check to see if the box is checked
-        if (recieptCheckBox.isSelected() == true &&  validEmail == true && validCreditCardNumber == true && validCardExpirationDate == true && validPrice == true && validISBN == true) {
+        //Does a check to see if the box is checked
+        if (recieptCheckBox.isSelected() == true && validEmail == true && validCreditCardNumber == true && validCardExpirationDate == true && validPrice == true && validISBN == true) {
             Checks.printReciept(Integer.parseInt(priceOfItemInputField.getText()), Integer.parseInt(ISBNInputField.getText()));
+            System.out.println("================= DATA =======================\nEmail: " + emailInputTextField.getText() + "\nCard Number: " + cardNumberInputField.getText() + "\nExperation Date (MM/YYYY): " + dayInputSpinner.getValue() + "/" + yearInputField.getText() + "\nEmail Receipt: " + emailReceipt + "\nPrice of Item: R" + priceOfItemInputField.getText() + "\nISBN: " + ISBNInputField.getText());
             JOptionPane.showMessageDialog(null, "YOUR DATA IS VALID!");
             emailReceipt = true;
-            System.out.println("================= DATA =======================\nEmail: " + emailInputTextField.getText() + "\nCard Number: " + cardNumberInputField.getText() + "\nExperation Date (MM/YYYY): " + dayInputSpinner.getValue() + "/" + yearInputField.getText() + "\nEmail Receipt: " + emailReceipt + "\nPrice of Item: R" + priceOfItemInputField.getText() + "\nISBN: " + ISBNInputField.getText());
         }
         
-        if(validEmail == true && validCreditCardNumber == true && validCardExpirationDate == true && validPrice == true && validISBN == true){
-            JOptionPane.showMessageDialog(null, "YOUR DATA IS VALID!");
+        if (validEmail == true && validCreditCardNumber == true && validCardExpirationDate == true && validPrice == true && validISBN == true) {
             System.out.println("================= DATA =======================\nEmail: " + emailInputTextField.getText() + "\nCard Number: " + cardNumberInputField.getText() + "\nExperation Date (MM/YYYY): " + dayInputSpinner.getValue() + "/" + yearInputField.getText() + "\nEmail Receipt: " + emailReceipt + "\nPrice of Item: R" + priceOfItemInputField.getText() + "\nISBN: " + ISBNInputField.getText());
+            JOptionPane.showMessageDialog(null, "YOUR DATA IS VALID!");
         }
 
     }//GEN-LAST:event_purchaseButtonActionPerformed
@@ -449,7 +476,7 @@ public class UI extends javax.swing.JFrame {
         if (!Character.isDigit(c)) {
             evt.consume();
             cardNumberErrorDisplayLabel.setText("Please ensure you only enter numbers!");
-
+            
         }
         int maxLenght = 16;
         if (cardNumberInputField.getText().length() >= maxLenght) {
@@ -466,6 +493,13 @@ public class UI extends javax.swing.JFrame {
         if (yearInputField.getText().length() >= maxLength) {
             evt.consume(); // Consume the key event to prevent further input
         }
+        
+        char c = evt.getKeyChar();
+        if (!Character.isDigit(c)) {
+            evt.consume();
+            expirationErrorDisplayLabel.setText("Please ensure you only enter numbers in your experation date!");
+            
+        }
     }//GEN-LAST:event_yearInputFieldKeyTyped
 
     private void yearInputFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_yearInputFieldFocusGained
@@ -478,10 +512,9 @@ public class UI extends javax.swing.JFrame {
             evt.consume();
             priceErrorDisplay.setText("Please ensure you only enter numbers!");
             priceErrorDisplay.setVisible(true);
-
+            
         }
         
-       
         int maxLength = (maxPrice + "").length();
         if (priceOfItemInputField.getText().length() >= maxLength) {
             evt.consume();
@@ -489,8 +522,8 @@ public class UI extends javax.swing.JFrame {
     }//GEN-LAST:event_priceOfItemInputFieldKeyTyped
 
     private void ISBNInputFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ISBNInputFieldKeyTyped
-          char c = evt.getKeyChar();
-          int maxLength = 10;
+        char c = evt.getKeyChar();
+        int maxLength = 10;
         if (!Character.isDigit(c) || ISBNInputField.getText().length() >= maxLength) {
             evt.consume();
 //            ISBNErrorDisplay.setText("Please ensure you only enter numbers!");
@@ -503,6 +536,13 @@ public class UI extends javax.swing.JFrame {
         int maxLength = 3;
         if (CVVInputField.getText().length() >= maxLength) {
             evt.consume();
+        }
+        
+        char c = evt.getKeyChar();
+        if (!Character.isDigit(c)) {
+            evt.consume();
+            expirationErrorDisplayLabel.setText("Please ensure you only enter numbers in your CVV!");
+            
         }
     }//GEN-LAST:event_CVVInputFieldKeyTyped
 
@@ -563,6 +603,7 @@ public class UI extends javax.swing.JFrame {
     private javax.swing.JLabel experationLabel;
     private javax.swing.JLabel expirationErrorDisplayLabel;
     private javax.swing.JComboBox<String> jComboBox3;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel18;
