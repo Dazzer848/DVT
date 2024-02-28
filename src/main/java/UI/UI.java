@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
  * @author darrenl
  */
 public class UI extends javax.swing.JFrame {
-
+    
     public int maxPrice = 9999999;
 
     /**
@@ -402,17 +402,18 @@ public class UI extends javax.swing.JFrame {
             validCreditCardNumber = true;
             cardNumberErrorDisplayLabel.setText(" ");
         }
-
+        
         if ((CVVInputField.getText().equals("---") || CVVInputField.getText().isEmpty() || CVVInputField.getText().length() < 3) && (yearInputField.getText().equals("----") || yearInputField.getText().isEmpty())) {
             expirationErrorDisplayLabel.setText("Please enter both an experation date and a CVV");
-
-        } else if ((Checks.cardDateValidity(LocalDateTime.of(Integer.parseInt(yearInputField.getText()), (int) dayInputSpinner.getValue(), 1, 0, 0))) == false && (CVVInputField.getText().equals("---") || CVVInputField.getText().isEmpty() || CVVInputField.getText().length() < 3)) {
-            expirationErrorDisplayLabel.setText("Please correct your year and CVV entries");
+        
+            
+            
         } else if (CVVInputField.getText().equals("---") || CVVInputField.getText().isEmpty() || CVVInputField.getText().length() < 3) {
             expirationErrorDisplayLabel.setText("Please enter a valid CVV!");
         } else if (yearInputField.getText().equals("----") || yearInputField.getText().isEmpty()) {
             expirationErrorDisplayLabel.setText("Please enter your card's experation date");
-        } else {
+        }
+        else {
             LocalDateTime cardDate = LocalDateTime.of(Integer.parseInt(yearInputField.getText()), (int) dayInputSpinner.getValue(), 1, 0, 0);
             if (Checks.cardDateValidity(cardDate) == false) {
                 expirationErrorDisplayLabel.setText("Please enter valid card details!");
@@ -421,10 +422,10 @@ public class UI extends javax.swing.JFrame {
                 expirationErrorDisplayLabel.setText("");
             }
         }
-
+        
         if (ISBNInputField.getText().isEmpty()) {
             ISBNErrorDisplay.setText("Please enter a ISBN ");
-
+            
         } else {
             validISBN = Checks.isValidISBN10(ISBNInputField.getText());
             if (validISBN == false) {
@@ -434,7 +435,7 @@ public class UI extends javax.swing.JFrame {
                 ISBNErrorDisplay.setText(" ");
             }
         }
-
+        
         if (priceOfItemInputField.getText().isEmpty()) {
             priceErrorDisplay.setText("Please enter a price!");
         } else {
@@ -445,7 +446,7 @@ public class UI extends javax.swing.JFrame {
                 validPrice = true;
                 priceErrorDisplay.setText("");
             }
-
+            
         }
         //Does a check to see if the box is checked
         if (recieptCheckBox.isSelected() == true && validEmail == true && validCreditCardNumber == true && validCardExpirationDate == true && validPrice == true && validISBN == true) {
@@ -454,7 +455,7 @@ public class UI extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "YOUR DATA IS VALID!");
             emailReceipt = true;
         }
-
+        
         if (validEmail == true && validCreditCardNumber == true && validCardExpirationDate == true && validPrice == true && validISBN == true) {
             System.out.println("================= DATA =======================\nEmail: " + emailInputTextField.getText() + "\nCard Number: " + cardNumberInputField.getText() + "\nExperation Date (MM/YYYY): " + dayInputSpinner.getValue() + "/" + yearInputField.getText() + "\nEmail Receipt: " + emailReceipt + "\nPrice of Item: R" + priceOfItemInputField.getText() + "\nISBN: " + ISBNInputField.getText());
             JOptionPane.showMessageDialog(null, "YOUR DATA IS VALID!");
@@ -478,7 +479,7 @@ public class UI extends javax.swing.JFrame {
         if (!Character.isDigit(c)) {
             evt.consume();
             cardNumberErrorDisplayLabel.setText("Please ensure you only enter numbers!");
-
+            
         }
         int maxLenght = 16;
         if (cardNumberInputField.getText().length() >= maxLenght) {
@@ -495,12 +496,12 @@ public class UI extends javax.swing.JFrame {
         if (yearInputField.getText().length() >= maxLength) {
             evt.consume(); // Consume the key event to prevent further input
         }
-
+        
         char c = evt.getKeyChar();
         if (!Character.isDigit(c)) {
             evt.consume();
             expirationErrorDisplayLabel.setText("Please ensure you only enter numbers in your experation date!");
-
+            
         }
     }//GEN-LAST:event_yearInputFieldKeyTyped
 
@@ -514,9 +515,9 @@ public class UI extends javax.swing.JFrame {
             evt.consume();
             priceErrorDisplay.setText("Please ensure you only enter numbers!");
             priceErrorDisplay.setVisible(true);
-
+            
         }
-
+        
         int maxLength = (maxPrice + "").length();
         if (priceOfItemInputField.getText().length() >= maxLength) {
             evt.consume();
@@ -539,12 +540,12 @@ public class UI extends javax.swing.JFrame {
         if (CVVInputField.getText().length() >= maxLength) {
             evt.consume();
         }
-
+        
         char c = evt.getKeyChar();
         if (!Character.isDigit(c)) {
             evt.consume();
             expirationErrorDisplayLabel.setText("Please ensure you only enter numbers in your CVV!");
-
+            
         }
     }//GEN-LAST:event_CVVInputFieldKeyTyped
 
