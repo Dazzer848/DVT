@@ -451,13 +451,13 @@ public class UI extends javax.swing.JFrame {
         //Does a check to see if the box is checked
         if (recieptCheckBox.isSelected() == true && validEmail == true && validCreditCardNumber == true && validCardExpirationDate == true && validPrice == true && validISBN == true) {
             Checks.printReciept(Integer.parseInt(priceOfItemInputField.getText()), Integer.parseInt(ISBNInputField.getText()));
-            System.out.println("================= DATA =======================\nEmail: " + emailInputTextField.getText() + "\nCard Number: " + cardNumberInputField.getText() + "\nExperation Date (MM/YYYY): " + dayInputSpinner.getValue() + "/" + yearInputField.getText() + "\nEmail Receipt: " + emailReceipt + "\nPrice of Item: R" + priceOfItemInputField.getText() + "\nISBN: " + ISBNInputField.getText());
-            JOptionPane.showMessageDialog(null, "YOUR DATA IS VALID!");
             emailReceipt = true;
+            System.out.println("================= DATA =======================\nEmail: " + emailInputTextField.getText() + "\nCard Number: " + cardNumberInputField.getText() + "\nExperation Date (MM/YYYY): " + dayInputSpinner.getValue() + "/" + yearInputField.getText() + "\nCVV: " + CVVInputField.getText() + "\nEmail Receipt: " + emailReceipt + "\nPrice of Item: R" + priceOfItemInputField.getText() + "\nISBN: " + ISBNInputField.getText());
+            JOptionPane.showMessageDialog(null, "YOUR DATA IS VALID!");
         }
         
-        if (validEmail == true && validCreditCardNumber == true && validCardExpirationDate == true && validPrice == true && validISBN == true) {
-            System.out.println("================= DATA =======================\nEmail: " + emailInputTextField.getText() + "\nCard Number: " + cardNumberInputField.getText() + "\nExperation Date (MM/YYYY): " + dayInputSpinner.getValue() + "/" + yearInputField.getText() + "\nEmail Receipt: " + emailReceipt + "\nPrice of Item: R" + priceOfItemInputField.getText() + "\nISBN: " + ISBNInputField.getText());
+        else if (validEmail == true && validCreditCardNumber == true && validCardExpirationDate == true && validPrice == true && validISBN == true) {
+            System.out.println("================= DATA =======================\nEmail: " + emailInputTextField.getText() + "\nCard Number: " + cardNumberInputField.getText() + "\nExperation Date (MM/YYYY): " + dayInputSpinner.getValue() + "/" + yearInputField.getText() + "\nCVV: " + CVVInputField.getText() + "\nEmail Receipt: " + emailReceipt + "\nPrice of Item: R" + priceOfItemInputField.getText() + "\nISBN: " + ISBNInputField.getText());
             JOptionPane.showMessageDialog(null, "YOUR DATA IS VALID!");
         }
 
