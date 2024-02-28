@@ -6,23 +6,19 @@ package UI;
 
 import Backend.Checks;
 import java.time.LocalDateTime;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author darrenl
  */
 public class UI extends javax.swing.JFrame {
-       public int maxPrice = 1234567;
+       public int maxPrice = 9999999;
     /**
      * Creates new form UI
      */
     public UI() {
         initComponents();
-        emailAddressErrorDisplau.setVisible(false);
-        cardNumberErrorDisplayLabel.setVisible(false);
-        expirationErrorDisplayLabel.setVisible(false);
-        priceErrorDisplay.setVisible(false);
-        ISBNErrorDisplay.setVisible(false);
     }
 
     /**
@@ -163,16 +159,16 @@ public class UI extends javax.swing.JFrame {
         });
 
         ISBNErrorDisplay.setForeground(new java.awt.Color(255, 0, 0));
-        ISBNErrorDisplay.setText("Please enter a valid 10 Digit ISBN");
+        ISBNErrorDisplay.setText(" ");
 
         expirationErrorDisplayLabel.setForeground(new java.awt.Color(255, 0, 0));
-        expirationErrorDisplayLabel.setText("Please enter a valid experation Date!");
+        expirationErrorDisplayLabel.setText(" ");
 
         cardNumberErrorDisplayLabel.setForeground(new java.awt.Color(255, 0, 0));
-        cardNumberErrorDisplayLabel.setText("Your card number is too long");
+        cardNumberErrorDisplayLabel.setText(" ");
 
         priceErrorDisplay.setForeground(new java.awt.Color(255, 0, 0));
-        priceErrorDisplay.setText("PLEASE ENTER A VALID PRICE");
+        priceErrorDisplay.setText(" ");
 
         emailDisplayLabel.setForeground(new java.awt.Color(255, 255, 255));
         emailDisplayLabel.setText("Email:");
@@ -184,7 +180,7 @@ public class UI extends javax.swing.JFrame {
         });
 
         emailAddressErrorDisplau.setForeground(new java.awt.Color(255, 0, 0));
-        emailAddressErrorDisplau.setText("Please enter a valid email address");
+        emailAddressErrorDisplau.setText(" ");
 
         emailReceiptLable.setForeground(new java.awt.Color(255, 255, 255));
         emailReceiptLable.setText("Email Recipt:");
@@ -355,83 +351,85 @@ public class UI extends javax.swing.JFrame {
         boolean validCardExpirationDate = false;
         boolean validPrice = false;
         boolean validISBN = false;
+        boolean emailReceipt = false;
+        
 
         //Checks the email
         if (emailInputTextField.getText().equals("")) {
             emailAddressErrorDisplau.setText("Please enter an email address!");
-            emailAddressErrorDisplau.setVisible(true);
         } else {
             validEmail = Checks.emailValdity(emailInputTextField.getText());
             if (validEmail == false) {
-                emailAddressErrorDisplau.setVisible(true);
+                emailAddressErrorDisplau.setText("Please enter a valid email!");
             }
             else{
-                emailAddressErrorDisplau.setVisible(false);
                 validEmail = true;
+                emailAddressErrorDisplau.setText("");
             }
         }
 
         //Checks the cardNumber!
         if (cardNumberInputField.equals("")) {
             cardNumberErrorDisplayLabel.setText("Please enter a card Number!");
-            cardNumberErrorDisplayLabel.setVisible(true);
         } else if (cardNumberInputField.getText().length() < 16) {
             cardNumberErrorDisplayLabel.setText("Please enter a 16 Digit valid Credit Card Number");
-            cardNumberErrorDisplayLabel.setVisible(true);
         }
         else{
-            cardNumberErrorDisplayLabel.setVisible(false);
             validCreditCardNumber = true;
+            cardNumberErrorDisplayLabel.setText(" ");
         }
 
         if (yearInputField.getText().equals("----") || CVVInputField.getText().equals("---")) {
             expirationErrorDisplayLabel.setText("Please enter your card details!");
-            expirationErrorDisplayLabel.setVisible(true);
-
         } else {
             LocalDateTime cardDate = LocalDateTime.of(Integer.parseInt(yearInputField.getText()), (int) dayInputSpinner.getValue(), 1, 0, 0);
             if (Checks.cardDateValidity(cardDate) == false) {
-                expirationErrorDisplayLabel.setVisible(true);
+                expirationErrorDisplayLabel.setText("Please enter valid card details!");
             } else {
                 validCardExpirationDate = true;
-                expirationErrorDisplayLabel.setVisible(false);
+                expirationErrorDisplayLabel.setText("");
             }
         }
 
-        if (ISBNInputField.getText().equals("")) {
-            ISBNErrorDisplay.setText("Please enter a valid ISBN ");
-            ISBNErrorDisplay.setVisible(true);
+        if (ISBNInputField.getText().isEmpty()) {
+            ISBNErrorDisplay.setText("Please enter a ISBN ");
 
         } else {
-            validISBN = Checks.isValidISBN(Integer.parseInt(ISBNInputField.getText()));
+            validISBN = Checks.isValidISBN(ISBNInputField.getText());
             if (validISBN == false) {
-                ISBNErrorDisplay.setVisible(true);
+                ISBNErrorDisplay.setText("Please enter a Valid ISBN");
             }
-            else{
-                ISBNErrorDisplay.setVisible(false);
+            else {
                 validISBN = true;
+                ISBNErrorDisplay.setText(" ");
             }
         }
 
         if (priceOfItemInputField.getText().equals("")) {
             priceErrorDisplay.setText("Please enter a price!");
-            priceErrorDisplay.setVisible(true);
         } else {
             validPrice = Checks.priceRangeCheck(maxPrice, priceOfItemInputField.getText());
             if (validPrice == false) {
-                priceErrorDisplay.setVisible(true);
+                priceErrorDisplay.setText("Please enter a valid price!");
             }
             else{
-                priceErrorDisplay.setVisible(false);
                 validPrice = true;
+                priceErrorDisplay.setText("");
             }
 
         }
                 //Does a check to see if the box is checked
         if (recieptCheckBox.isSelected() == true &&  validEmail == true && validCreditCardNumber == true && validCardExpirationDate == true && validPrice == true && validISBN == true) {
             Checks.printReciept(Integer.parseInt(priceOfItemInputField.getText()), Integer.parseInt(ISBNInputField.getText()));
+            JOptionPane.showMessageDialog(null, "YOUR DATA IS VALID!");
+            emailReceipt = true;
+            System.out.println("================= DATA =======================\nEmail: " + emailInputTextField.getText() + "\nCard Number: " + cardNumberInputField.getText() + "\nExperation Date (MM/YYYY): " + dayInputSpinner.getValue() + "/" + yearInputField.getText() + "\nEmail Receipt: " + emailReceipt + "\nPrice of Item: R" + priceOfItemInputField.getText() + "\nISBN: " + ISBNInputField.getText());
         }
-
+        
+        if(validEmail == true && validCreditCardNumber == true && validCardExpirationDate == true && validPrice == true && validISBN == true){
+            JOptionPane.showMessageDialog(null, "YOUR DATA IS VALID!");
+            System.out.println("================= DATA =======================\nEmail: " + emailInputTextField.getText() + "\nCard Number: " + cardNumberInputField.getText() + "\nExperation Date (MM/YYYY): " + dayInputSpinner.getValue() + "/" + yearInputField.getText() + "\nEmail Receipt: " + emailReceipt + "\nPrice of Item: R" + priceOfItemInputField.getText() + "\nISBN: " + ISBNInputField.getText());
+        }
 
     }//GEN-LAST:event_purchaseButtonActionPerformed
 
@@ -451,15 +449,11 @@ public class UI extends javax.swing.JFrame {
         if (!Character.isDigit(c)) {
             evt.consume();
             cardNumberErrorDisplayLabel.setText("Please ensure you only enter numbers!");
-            cardNumberErrorDisplayLabel.setVisible(true);
 
         }
-
         int maxLenght = 16;
         if (cardNumberInputField.getText().length() >= maxLenght) {
             evt.consume();
-            cardNumberErrorDisplayLabel.setText("Card Number Too Long!");
-            cardNumberErrorDisplayLabel.setVisible(true);
         }
     }//GEN-LAST:event_cardNumberInputFieldKeyTyped
 
@@ -495,13 +489,14 @@ public class UI extends javax.swing.JFrame {
     }//GEN-LAST:event_priceOfItemInputFieldKeyTyped
 
     private void ISBNInputFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ISBNInputFieldKeyTyped
-//        char c = evt.getKeyChar();
-//        if (!Character.isDigit(c)) {
-//            evt.consume();
+          char c = evt.getKeyChar();
+          int maxLength = 10;
+        if (!Character.isDigit(c) || ISBNInputField.getText().length() >= maxLength) {
+            evt.consume();
 //            ISBNErrorDisplay.setText("Please ensure you only enter numbers!");
 //            ISBNErrorDisplay.setVisible(true);
 //
-//        }
+        }
     }//GEN-LAST:event_ISBNInputFieldKeyTyped
 
     private void CVVInputFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CVVInputFieldKeyTyped

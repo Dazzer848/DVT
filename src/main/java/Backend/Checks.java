@@ -128,33 +128,24 @@ public class Checks {
         }
     }
 
-    public static boolean isValidISBN(int inputISBN) {
-        String isbnString = String.valueOf(inputISBN);
+    public static boolean isValidISBN(String inputISBN) {
 
-        isbnString = isbnString.replace("-", "");
+        //isbnString = isbnString.replace("-", "");
 
-        if (isbnString.length() != 10) {
+        if (inputISBN.length() != 10) {
             return false;
         }
-        for (int i = 0; i < 9; i++) {
-            if (!Character.isDigit(isbnString.charAt(i))) {
-                return false;
-            }
-        }
-
-        int weightedSum = 0;
-        for (int i = 0; i < 9; i++) {
-            weightedSum += (i + 1) * Character.getNumericValue(isbnString.charAt(i));
+        
+        int sum = 0;
+        for(int i = 0; i < 10; i++){
+            sum += Character.getNumericValue(inputISBN.charAt(i)) * (10-i);
+            System.out.println(Character.getNumericValue(inputISBN.charAt(i)));
+            System.out.println(sum);
         }
         
-        
-        char lastChar = isbnString.charAt(9);
-        if (!Character.isDigit(lastChar) && lastChar != 'X') {
-            return false;
-        }
-        int lastDigit = (lastChar == 'X') ? 10 : Character.getNumericValue(lastChar);
+        int reminder = sum%11;
 
 
-        return (weightedSum + lastDigit) % 11 == 0;
+        return 11 - reminder == Character.getNumericValue(inputISBN.charAt(9));
     }
 }
